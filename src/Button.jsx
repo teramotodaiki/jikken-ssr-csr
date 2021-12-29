@@ -1,5 +1,5 @@
 import React from "react";
 
-export function Button() {
-  return <button onClick={(e) => console.log("Clicked!!")}>Click me!</button>;
+export function Button(props) {
+  return <button onClick={props.onClick}>Click me!</button>;
 }

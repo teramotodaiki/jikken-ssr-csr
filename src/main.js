@@ -2,4 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { HydrateRoot } from "./HydrateRoot";
 
-ReactDOM.hydrate(<HydrateRoot />, document.getElementById("app"));
+const app = document.getElementById("app");
+const props = JSON.parse(app.dataset.props);
+
+ReactDOM.hydrate(<HydrateRoot {...props} />, document.getElementById("app"));

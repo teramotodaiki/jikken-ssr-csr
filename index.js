@@ -8,7 +8,9 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   const { App } = require("./lib/App");
-  const props = {};
+  const props = {
+    start: parseInt(req.query.start + "") || 0,
+  };
   const html = ReactDOMServer.renderToString(React.createElement(App, props));
   res.send(`<!DOCTYPE html>${html}`);
 });
