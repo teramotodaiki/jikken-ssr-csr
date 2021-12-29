@@ -4,6 +4,8 @@ const ReactDOMServer = require("react-dom/server");
 
 const app = express();
 
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
   const { App } = require("./lib/App");
   const props = {};

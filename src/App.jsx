@@ -1,4 +1,5 @@
 import React from "react";
+import { HydrateRoot } from "./HydrateRoot";
 
 export function App() {
   return (
@@ -7,7 +8,10 @@ export function App() {
         <title>React App</title>
       </head>
       <body>
-        <h1>Hello World</h1>
+        <div id="app">
+          <HydrateRoot />
+        </div>
+        <script src="/main.js"></script>
       </body>
     </html>
   );
