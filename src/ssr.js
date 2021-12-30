@@ -3,13 +3,14 @@ const path = require("path");
 
 async function ssr(serverComponentPath) {
   // CSR 用の JS をビルド
-  const config = require("./webpack.config.js");
-  const src = serverComponentPath.replace(/\W/g, "_") + ".js"; // アルファベット以外全部 _ に置き換える
+  const config = require("../webpack.config.js");
+  const name = path.relative(__dirname, serverComponentPath);
+  const src = name.replace(/\W/g, "_") + ".js"; // アルファベット以外全部 _ に置き換える
   const compiler = webpack({
     ...config,
     entry: serverComponentPath,
     output: {
-      path: __dirname + "/public",
+      path: path.resolve(__dirname, "../public"),
       filename: src,
       publicPath: "/",
     },

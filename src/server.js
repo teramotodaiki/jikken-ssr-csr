@@ -7,11 +7,11 @@ const app = express();
 
 app.use(express.static("public"));
 
-const HomePromise = ssr("./src/Home.server");
+const HomePromise = ssr(__dirname + "/Home.server");
 
 app.get("/", (req, res) => {
   HomePromise.then((src) => {
-    const Home = require("./lib/Home.server").default;
+    const Home = require("./Home.server").default;
     const props = {
       src,
       start: parseInt(req.query.start + "") || 0,
