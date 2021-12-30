@@ -1,5 +1,8 @@
 import React from "react";
-import { HydrateRoot } from "./HydrateRoot";
+import { dynamic } from "./dynamic";
+
+const Home = dynamic(() => import("./Home"));
+console.log(Home);
 
 export function App(props) {
   return (
@@ -9,10 +12,12 @@ export function App(props) {
       </head>
       <body>
         <div id="app" data-props={JSON.stringify(props)}>
-          <HydrateRoot {...props} />
+          <Home {...props} />
         </div>
         <script src="/main.js"></script>
       </body>
     </html>
   );
 }
+
+export default App;

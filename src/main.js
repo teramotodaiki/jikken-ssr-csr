@@ -1,8 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { HydrateRoot } from "./HydrateRoot";
 
 const app = document.getElementById("app");
 const props = JSON.parse(app.dataset.props);
 
-ReactDOM.hydrate(<HydrateRoot {...props} />, document.getElementById("app"));
+import("./Home").then((module) => {
+  const Home = module.default;
+  ReactDOM.render(<Home {...props} />, app);
+});
+
+// ReactDOM.render(<Home {...props} />, document.getElementById("app"));
