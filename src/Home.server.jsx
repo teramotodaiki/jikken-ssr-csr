@@ -14,7 +14,7 @@ export function App(props) {
         <div id="app" data-props={JSON.stringify(props)}>
           <Home {...props} />
         </div>
-        <script src="/main.js"></script>
+        <script async defer src={props.src}></script>
       </body>
     </html>
   );

@@ -10,9 +10,10 @@ app.use(express.static("public"));
 const HomePromise = ssr("./src/Home.server");
 
 app.get("/", (req, res) => {
-  HomePromise.then(() => {
+  HomePromise.then((src) => {
     const Home = require("./lib/Home.server").default;
     const props = {
+      src,
       start: parseInt(req.query.start + "") || 0,
     };
     const html = ReactDOMServer.renderToString(
