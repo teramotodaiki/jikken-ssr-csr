@@ -1,7 +1,7 @@
 import webpack from "webpack";
 import path from "path";
 
-export async function ssr(serverComponentPath) {
+export function ssr(serverComponentPath) {
   // CSR 用の JS をビルド
   const name = path.relative(__dirname, serverComponentPath);
   const src = name.replace(/\W/g, "_") + ".js"; // アルファベット以外全部 _ に置き換える
@@ -28,9 +28,12 @@ export async function ssr(serverComponentPath) {
     },
   });
 
-  return new Promise((resolve) => {
-    compiler.run(() => {
-      resolve(src);
-    });
+  const waitForWebpack = new Promise((resolve) => {
+    compiler.run(resolve);
   });
+
+  return {
+    src,
+    waitForWebpack,
+  };
 }

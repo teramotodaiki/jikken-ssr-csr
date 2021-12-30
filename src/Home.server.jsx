@@ -2,7 +2,6 @@ import React from "react";
 import { dynamic } from "./dynamic";
 
 const Home = dynamic(() => import("./Home"));
-console.log(Home);
 
 export function App(props) {
   return (
