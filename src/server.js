@@ -1,7 +1,7 @@
-const express = require("express");
-const React = require("react");
-const ReactDOMServer = require("react-dom/server");
-const { ssr } = require("./ssr");
+import express from "express";
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+import { ssr } from "./ssr";
 
 const app = express();
 
