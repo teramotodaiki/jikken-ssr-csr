@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button } from "./Button";
+import { wrapToHydrate } from "./wrapToHydrate";
 
-export default function Home(props) {
+function Home(props) {
   const [value, setValue] = useState(props.start);
 
   return (
@@ -13,3 +14,5 @@ export default function Home(props) {
     </>
   );
 }
+
+export default wrapToHydrate(Home, __filename);

@@ -3,24 +3,24 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import Home from "./Home.server";
 import { ssr } from "./ssr";
+import { getFilesToBeSSR } from "./wrapToHydrate";
 
 const app = express();
 
+const filesToBeSSR = getFilesToBeSSR();
+const waitForWebpack = Promise.all(filesToBeSSR.map((entry) => ssr(entry)));
+
+app.use((req, res, next) => {
+  waitForWebpack.then(() => next());
+});
 app.use(express.static("public"));
 
-const { src, waitForWebpack } = ssr(__dirname + "/Home.server");
-
 app.get("/", (req, res) => {
-  waitForWebpack.then(() => {
-    const props = {
-      src,
-      start: parseInt(req.query.start + "") || 0,
-    };
-    const html = ReactDOMServer.renderToString(
-      React.createElement(Home, props)
-    );
-    res.send(`<!DOCTYPE html>${html}`);
-  });
+  const props = {
+    start: parseInt(req.query.start + "") || 0,
+  };
+  const html = ReactDOMServer.renderToString(React.createElement(Home, props));
+  res.send(`<!DOCTYPE html>${html}`);
 });
 
 const PORT = process.env.PORT || 3000;
