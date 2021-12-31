@@ -2,17 +2,17 @@ import express from "express";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import Home from "./Home.server";
-import { ssr } from "./ssr";
-import { getFilesToBeSSR } from "./wrapToHydrate";
+// import { ssr } from "./ssr";
+// import { getFilesToBeSSR } from "./wrapToHydrate";
 
 const app = express();
 
-const filesToBeSSR = getFilesToBeSSR();
-const waitForWebpack = ssr(filesToBeSSR);
+// const filesToBeSSR = getFilesToBeSSR();
+// const waitForWebpack = ssr(filesToBeSSR);
 
-app.use((req, res, next) => {
-  waitForWebpack.then(() => next());
-});
+// app.use((req, res, next) => {
+//   waitForWebpack.then(() => next());
+// });
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
