@@ -2,17 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { getScriptSrc } from "./util";
 
-const filesToBeSSR = [];
-export function getFilesToBeSSR() {
-  return [...filesToBeSSR];
-}
-
 export function wrapToHydrate(Component, fileName) {
   const id = "app";
 
   const isServerSide = typeof window === "undefined";
   if (isServerSide) {
-    filesToBeSSR.push(fileName);
     const src = getScriptSrc(fileName);
     return (props) => (
       <>

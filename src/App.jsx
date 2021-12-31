@@ -13,5 +13,3 @@ export function App(props) {
     </html>
   );
 }
-
-export default App;
