@@ -2,16 +2,21 @@ import webpack from "webpack";
 import path from "path";
 import { getScriptSrc } from "./util";
 
-export function ssr(serverComponentPath) {
-  const src = getScriptSrc(serverComponentPath);
+export function ssr(serverComponentPaths) {
+  /** @type import('webpack').EntryObject  */
+  const entry = {};
+  for (const filePath of serverComponentPaths) {
+    const src = getScriptSrc(filePath);
+    entry[src] = filePath;
+  }
 
   // CSR 用の JS をビルド
   const compiler = webpack({
     mode: "development",
-    entry: serverComponentPath,
+    entry,
     output: {
       path: path.resolve(__dirname, "../public"),
-      filename: src,
+      filename: `[name]`,
       publicPath: "/",
     },
     resolve: {

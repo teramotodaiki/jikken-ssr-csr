@@ -8,7 +8,7 @@ import { getFilesToBeSSR } from "./wrapToHydrate";
 const app = express();
 
 const filesToBeSSR = getFilesToBeSSR();
-const waitForWebpack = Promise.all(filesToBeSSR.map((entry) => ssr(entry)));
+const waitForWebpack = ssr(filesToBeSSR);
 
 app.use((req, res, next) => {
   waitForWebpack.then(() => next());
