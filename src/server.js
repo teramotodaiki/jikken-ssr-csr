@@ -1,3 +1,5 @@
+require("./entry-loader").register(); // Node.js で .entry.js を特殊な方法で読み込む
+
 import express from "express";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
