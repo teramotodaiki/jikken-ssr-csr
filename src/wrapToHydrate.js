@@ -1,13 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { getScriptSrc } from "./util";
 
 export function wrapToHydrate(Component, fileName) {
   const id = "app";
 
   const isServerSide = typeof window === "undefined";
   if (isServerSide) {
-    const src = getScriptSrc(fileName);
+    const entry = require("../entry.json");
+    const result = Object.entries(entry).find(
+      ([, fullPath]) => fullPath === fileName
+    );
+    if (!result) {
+      throw new Error(`${fileName} is not found in entry.json`);
+    }
+    const [src] = result;
     return (props) => (
       <>
         <div id={id} data-props={JSON.stringify(props)}>

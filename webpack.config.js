@@ -1,16 +1,18 @@
+const fs = require("fs");
 const glob = require("glob");
 const path = require("path");
 
 module.exports = {
   mode: "development",
   entry: () => {
-    const fileNames = glob.sync("lib/*.entry.js", {});
+    const fileNames = glob.sync("lib/*.entry.{js,jsx}", {});
     /** @type {import ('webpack').EntryObject} */
     const entries = {};
     for (const fileName of fileNames) {
       const src = getScriptSrc(fileName);
       entries[src] = path.resolve(__dirname, fileName);
     }
+    fs.writeFileSync("entry.json", JSON.stringify(entries, null, 2));
     return entries;
   },
   output: {
